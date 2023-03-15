@@ -72,7 +72,7 @@ implements WebMvcConfigurer {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/token").permitAll()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/client/**").authenticated()
+                .antMatchers("/api/client**").authenticated()
                 .antMatchers("/user").authenticated()
                 .antMatchers("/js/**",
                         	 "/css/**",
@@ -125,7 +125,7 @@ implements WebMvcConfigurer {
         CorsConfiguration configuration = new CorsConfiguration();
         // Si je mets "*" : j'autorise toute origine !!!
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","OPTIONS","HEAD"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS","HEAD"));
         configuration.setAllowCredentials(true);
         
         configuration.setAllowedHeaders(Arrays.asList("Authorization","Requestor-Type","x-auth-token"));

@@ -38,8 +38,9 @@ public class ClientsControllerRest {
 		return client;
 	}
 	
-	@DeleteMapping("client")
-	public void delete(@RequestBody Integer id) {
+	@DeleteMapping("client/{id}")
+	public Client delete(@RequestBody Integer id) {
 		crc.deleteById(id);
+		return null;
 	}
 }
