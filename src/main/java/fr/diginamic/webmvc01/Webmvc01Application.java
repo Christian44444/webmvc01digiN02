@@ -1,37 +1,32 @@
 package fr.diginamic.webmvc01;
 
+import java.util.Collections;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
+@RestController
+@CrossOrigin(origins = "http://localhost:4200",
+		 	 allowedHeaders = {"Requestor-Type", "Authorization"},
+		 	 exposedHeaders = "X-Get-Header")
+
 public class Webmvc01Application implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Webmvc01Application.class, args);
 	}
-	@Configuration
-	 public class CorsConfig {
-
-	     @Bean
-	     public WebMvcConfigurer corsConfigurer() {
-	         return new WebMvcConfigurer() {
-	             @Override
-	             public void addCorsMappings(CorsRegistry registry) {
-	                 registry.addMapping("/**")
-	                 	.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-	                 	.allowedOrigins("*")
-	                 	.allowedHeaders("*");
-	             }
-	         };
-	     }
-	 }
-
+	
 	/**
 	 * Configuration pour le chargement des 
 	 * messages Intenationaux
@@ -45,5 +40,9 @@ public class Webmvc01Application implements WebMvcConfigurer {
         messageSource.setBasename("i18n/messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
+    }
+	@GetMapping("/token")
+    public Map<String, String> token(HttpSession session) {
+        return Collections.singletonMap("token", session.getId());
     }
 }
