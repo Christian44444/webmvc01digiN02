@@ -17,9 +17,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @RestController
-@CrossOrigin(origins = "http://localhost:4200",
-		 	 allowedHeaders = {"Requestor-Type", "Authorization"},
-		 	 exposedHeaders = "X-Get-Header")
+@CrossOrigin(
+	origins = "http://localhost:4200",
+	allowedHeaders = {"Requestor-Type", "Authorization", "x-auth-token"},
+	exposedHeaders = "X-Get-Header")
 
 public class Webmvc01Application implements WebMvcConfigurer {
 

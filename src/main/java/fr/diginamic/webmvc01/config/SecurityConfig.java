@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -62,15 +63,17 @@ implements WebMvcConfigurer {
                 .permitAll()
                 .and()
                 .logout()
-//              .logoutUrl("/logout")
-//              .logoutSuccessHandler(new AuthentificationLogoutSuccessHandler())
+//                .logoutUrl("/logout")
+//                .logoutSuccessHandler(new AuthentificationLogoutSuccessHandler())
                 .invalidateHttpSession(true)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/logout").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/token").permitAll()
+                .antMatchers("/api/**").permitAll()
+                .antMatchers("/client/**").authenticated()
                 .antMatchers("/user").authenticated()
-                .antMatchers("/api/users").permitAll()
-                .antMatchers("/client/**").permitAll()
                 .antMatchers("/js/**",
                         	 "/css/**",
                         	 "/img/**",
